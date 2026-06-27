@@ -1,0 +1,533 @@
+<template>
+
+
+<CustomerLayout>
+
+
+<div class="max-w-6xl mx-auto">
+
+
+
+
+
+<!-- HEADER -->
+
+
+<div class="text-center mb-14">
+
+
+<h1
+class="
+font-serif
+text-8xl
+text-gray-800
+"
+>
+
+C
+
+</h1>
+
+
+
+<h2
+class="
+tracking-[12px]
+font-bold
+text-3xl
+"
+>
+
+CORALDAISY
+
+</h2>
+
+
+
+<p class="text-gray-400 mt-4">
+
+Return Collection
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- EMPTY -->
+
+
+<div
+
+v-if="returns.length === 0"
+
+class="
+bg-white/70
+rounded-[35px]
+shadow-xl
+p-16
+text-center
+"
+
+>
+
+
+<h2 class="text-3xl font-bold">
+
+No Return Request
+
+</h2>
+
+
+<p class="text-gray-400 mt-3">
+
+Your return history will appear here
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- RETURN LIST -->
+
+
+<div class="space-y-8">
+
+
+
+<div
+
+v-for="item in returns"
+
+:key="item.id"
+
+class="
+bg-white/70
+backdrop-blur-xl
+rounded-[35px]
+shadow-xl
+border
+border-white
+p-10
+"
+
+>
+
+
+
+
+
+<div class="flex justify-between">
+
+
+
+<div>
+
+
+<p
+class="
+tracking-[5px]
+text-pink-400
+font-bold
+"
+>
+
+RETURN REQUEST
+
+</p>
+
+
+
+<h2
+class="
+text-3xl
+font-bold
+mt-3
+"
+>
+
+Order #{{ item.order_id }}
+
+</h2>
+
+
+</div>
+
+
+
+
+
+
+
+<span
+
+:class="statusClass(item.status)"
+
+class="
+px-6
+py-3
+rounded-full
+font-bold
+h-fit
+"
+
+>
+
+{{ item.status }}
+
+</span>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div
+class="
+mt-8
+bg-white
+rounded-3xl
+p-6
+shadow
+"
+>
+
+
+<p class="text-gray-400">
+
+Reason
+
+</p>
+
+
+<h3 class="font-bold mt-2">
+
+{{ item.reason }}
+
+</h3>
+
+
+
+
+
+<p class="text-gray-400 mt-6">
+
+Description
+
+</p>
+
+
+
+<p class="mt-2">
+
+{{ item.description }}
+
+</p>
+
+<!-- REFUND -->
+
+
+<div
+class="
+mt-8
+bg-pink-50
+rounded-3xl
+p-6
+"
+>
+
+
+<p class="text-gray-400">
+
+Refund Amount
+
+</p>
+
+
+<h2
+class="
+text-3xl
+font-bold
+text-pink-500
+mt-2
+"
+>
+
+{{ formatRupiah(item.refund_amount) }}
+
+</h2>
+
+
+
+
+<p class="text-gray-400 mt-5">
+
+Refund Status
+
+</p>
+
+
+
+<span
+class="
+inline-block
+mt-2
+px-5
+py-2
+rounded-full
+font-bold
+bg-green-100
+text-green-600
+"
+>
+
+{{ item.refund_status }}
+
+</span>
+
+
+</div>
+
+<!-- RETURN IMAGE -->
+
+
+<div
+v-if="item.image_url"
+class="mt-8"
+>
+
+
+<p class="text-gray-400 mb-3">
+
+Evidence Image
+
+</p>
+
+
+
+<img
+
+:src="'http://127.0.0.1:8000' + item.image_url"
+
+class="
+w-64
+h-64
+object-cover
+rounded-3xl
+shadow-xl
+"
+
+/>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</CustomerLayout>
+
+
+</template>
+
+
+
+
+
+
+
+
+
+
+
+<script setup>
+
+
+import {
+
+ref,
+
+onMounted
+
+} from "vue";
+
+
+
+import api from "../api/axios";
+
+
+import CustomerLayout from "../components/CustomerLayout.vue";
+
+
+
+
+
+
+
+const returns =
+ref([]);
+
+
+
+
+
+
+
+
+
+
+async function getReturns(){
+
+
+
+try{
+
+
+
+const response =
+await api.get(
+"/returns"
+);
+
+
+
+returns.value =
+response.data.data
+??
+response.data;
+
+
+
+
+}catch(error){
+
+
+
+console.log(error);
+
+
+
+}
+
+
+
+}
+
+
+
+
+function formatRupiah(value){
+
+
+return new Intl.NumberFormat(
+
+"id-ID",
+
+{
+
+style:"currency",
+
+currency:"IDR",
+
+minimumFractionDigits:0
+
+}
+
+)
+.format(value ?? 0);
+
+
+}
+
+
+
+
+function statusClass(status){
+
+
+
+if(status === "approved"){
+
+
+return "bg-green-100 text-green-600";
+
+
+}
+
+
+
+
+if(status === "rejected"){
+
+
+return "bg-red-100 text-red-600";
+
+
+}
+
+
+
+
+return "bg-yellow-100 text-yellow-600";
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+onMounted(()=>{
+
+
+getReturns();
+
+
+});
+
+
+
+</script>
