@@ -620,59 +620,28 @@ async function approveReturn(id){
 
 
 async function rejectReturn(id){
+    await api.put(
+        `/admin/returns/${id}/reject`,
+        {
+            reason: "Ditolak admin"
+        }
+    );
 
+    alert("Return rejected");
 
-    try{
-
-        await api.put(
-            `/admin/returns/${id}/approve`
-        );
-
-        alert("Return approved");
-
-        getReturns();
-
-    }catch(error){
-
-        console.log(error);
-
-        alert(
-            error.response?.data?.message ??
-            "Failed to approve return"
-        );
-
-    }
-
-
+    getReturns();
 }
 
 
 
 async function completeReturn(id){
+    await api.put(
+        `/admin/returns/${id}/complete`
+    );
 
+    alert("Return completed");
 
-    try{
-
-        await api.put(
-            `/admin/returns/${id}/approve`
-        );
-
-        alert("Return approved");
-
-        getReturns();
-
-    }catch(error){
-
-        console.log(error);
-
-        alert(
-            error.response?.data?.message ??
-            "Failed to approve return"
-        );
-
-    }
-
-
+    getReturns();
 }
 
 
