@@ -218,7 +218,7 @@ h-fit
 "
 
 :class="{
-'bg-yellow-100 text-yellow-600': item.status === 'pending',
+'bg-yellow-100 text-yellow-600': item.status === 'requested',
 'bg-green-100 text-green-600': item.status === 'approved' || item.status === 'completed',
 'bg-red-100 text-red-600': item.status === 'rejected'
 }"
@@ -320,7 +320,9 @@ Evidence Image
 
 <img
 
-:src="'http://127.0.0.1:8000' + item.image_url"
+:src="BASE_URL + item.image_url"
+
+
 
 class="
 w-72
@@ -387,7 +389,7 @@ mt-8
 
 <button
 
-v-if="item.status === 'pending'"
+v-if="item.status === 'requested'"
 
 @click="approveReturn(item.id)"
 
@@ -416,7 +418,7 @@ Approve ✓
 
 <button
 
-v-if="item.status === 'pending'"
+v-if="item.status === 'requested'"
 
 @click="rejectReturn(item.id)"
 
@@ -547,7 +549,8 @@ const router = useRouter();
 
 const returns = ref([]);
 
-
+const BASE_URL =
+import.meta.env.VITE_API_URL.replace('/api','');
 
 async function getReturns(){
 
@@ -591,17 +594,26 @@ console.log(error);
 
 async function approveReturn(id){
 
+    try{
 
-    await api.put(
-        `/admin/returns/${id}/approve`
-    );
+        await api.put(
+            `/admin/returns/${id}/approve`
+        );
 
+        alert("Return approved");
 
-    alert("Return approved");
+        getReturns();
 
+    }catch(error){
 
-    getReturns();
+        console.log(error);
 
+        alert(
+            error.response?.data?.message ??
+            "Failed to approve return"
+        );
+
+    }
 
 }
 
@@ -610,18 +622,26 @@ async function approveReturn(id){
 async function rejectReturn(id){
 
 
-    await api.put(
-        `/admin/returns/${id}/reject`,
-        {
-            reason:"Ditolak admin"
-        }
-    );
+    try{
 
+        await api.put(
+            `/admin/returns/${id}/approve`
+        );
 
-    alert("Return rejected");
+        alert("Return approved");
 
+        getReturns();
 
-    getReturns();
+    }catch(error){
+
+        console.log(error);
+
+        alert(
+            error.response?.data?.message ??
+            "Failed to approve return"
+        );
+
+    }
 
 
 }
@@ -631,15 +651,26 @@ async function rejectReturn(id){
 async function completeReturn(id){
 
 
-    await api.put(
-        `/admin/returns/${id}/complete`
-    );
+    try{
 
+        await api.put(
+            `/admin/returns/${id}/approve`
+        );
 
-    alert("Return completed");
+        alert("Return approved");
 
+        getReturns();
 
-    getReturns();
+    }catch(error){
+
+        console.log(error);
+
+        alert(
+            error.response?.data?.message ??
+            "Failed to approve return"
+        );
+
+    }
 
 
 }
