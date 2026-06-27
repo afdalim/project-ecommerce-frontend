@@ -326,9 +326,7 @@ Evidence Image
 
 
 <img
-
-:src="`${import.meta.env.VITE_API_URL.replace('/api','')}${item.image_url}`"
-
+:src="BASE_URL + item.image_url"
 class="
 w-64
 h-64
@@ -336,7 +334,6 @@ object-cover
 rounded-3xl
 shadow-xl
 "
-
 />
 
 
@@ -388,7 +385,8 @@ onMounted
 
 } from "vue";
 
-
+const BASE_URL =
+import.meta.env.VITE_API_URL.replace('/api', '');
 
 import api from "../api/axios";
 
