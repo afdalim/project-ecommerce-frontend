@@ -362,7 +362,15 @@ transition
 
 
 
-<img :src="imagePath(product.image_url)">
+<img
+    :src="imagePath(product.image_url)"
+    class="
+        w-32
+        h-32
+        object-cover
+        rounded-xl
+    "
+>
 
 
 
