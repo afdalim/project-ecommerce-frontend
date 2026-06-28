@@ -370,6 +370,20 @@ v-if="
 order.payment_status == 'pending'
 "
 @click="payAgain(order.id)"
+class="
+bg-pink-500
+text-white
+px-6
+py-3
+rounded-full
+font-bold
+hover:bg-pink-600
+hover:scale-105
+transition
+duration-200
+cursor-pointer
+shadow-lg
+"
 >
 Bayar Sekarang
 </button>
