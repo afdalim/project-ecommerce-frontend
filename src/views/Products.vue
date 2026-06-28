@@ -665,13 +665,7 @@ import CustomerLayout from "../components/CustomerLayout.vue";
 const BASE_URL =
 import.meta.env.VITE_API_URL.replace('/api','');
 
-function imagePath(path){
-    if(!path){
-        return '';
-    }
 
-    return BASE_URL + path;
-}
 
 
 
@@ -716,10 +710,13 @@ ref("");
 
 function imagePath(path){
 
+    if(!path){
+        return "/placeholder.png";
+    }
 
-return "http://127.0.0.1:8000" + path;
-
-
+    return path.startsWith("http")
+        ? path
+        : `${BASE_URL}${path}`;
 }
 
 
