@@ -571,6 +571,8 @@ async function createOrder() {
 });
 
 console.log("PAYMENT RESPONSE :", payment);
+console.log("PAYMENT DATA :", payment.data);
+console.log("SNAP TOKEN :", payment.data.snap_token);
 
 window.snap.pay(payment.data.snap_token, {
 
