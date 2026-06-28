@@ -567,8 +567,30 @@ async function createOrder() {
         console.log("AKAN REQUEST PAYMENT");
 
         const payment = await api.post("/payments/create", {
-            order_id: orderId
-        });
+    order_id: orderId
+});
+
+console.log("PAYMENT RESPONSE :", payment);
+
+window.snap.pay(payment.data.snap_token, {
+
+    onSuccess: function(result) {
+        router.push('/orders');
+    },
+
+    onPending: function(result) {
+        router.push('/orders');
+    },
+
+    onError: function(result) {
+        router.push('/orders');
+    },
+
+    onClose: function() {
+        router.push('/orders');
+    }
+
+});
 
         console.log("PAYMENT RESPONSE :", payment);
 
