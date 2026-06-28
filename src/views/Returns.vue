@@ -109,23 +109,23 @@ Your return history will appear here
 
 
 <div
-
-v-for="item in returns"
-
-:key="item.id"
-
-class="
-bg-white/70
-backdrop-blur-xl
-rounded-[35px]
-shadow-xl
-border
-border-white
-p-10
-"
-
+    v-for="item in returns"
+    :key="item.id"
 >
 
+    <pre>{{ item.images }}</pre>
+
+    <div
+        v-for="image in item.images"
+        :key="image"
+    >
+        <img
+            :src="returnImagePath(image)"
+            class="w-32 h-32 object-cover rounded-xl"
+        >
+    </div>
+
+</div>
 
 
 
@@ -325,16 +325,7 @@ Evidence Image
 
 
 
-<img
-:src="BASE_URL + item.image_url"
-class="
-w-64
-h-64
-object-cover
-rounded-3xl
-shadow-xl
-"
-/>
+<img :src="returnImagePath(image)">
 
 
 </div>
@@ -353,10 +344,6 @@ shadow-xl
 </div>
 
 
-
-
-
-</div>
 
 
 </CustomerLayout>
@@ -474,7 +461,17 @@ minimumFractionDigits:0
 
 }
 
+function returnImagePath(path){
 
+    if(!path){
+        return '';
+    }
+
+    const filename =
+        path.split('/').pop();
+
+    return `https://project-ecommerce-backend-production.up.railway.app/return-image/${filename}`;
+}
 
 
 function statusClass(status){

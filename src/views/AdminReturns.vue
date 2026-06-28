@@ -130,9 +130,9 @@ transition
 "
 >
 
+<pre>{{ item.images }}</pre>
 
-
-
+</div>
 
 
 
@@ -319,21 +319,9 @@ Evidence Image
 
 
 <img
-
-:src="BASE_URL + item.image_url"
-
-
-
-class="
-w-72
-h-72
-object-cover
-rounded-3xl
-shadow-xl
-border
-"
-
-/>
+    :src="returnImagePath(image)"
+    class="w-24 h-24 object-cover rounded-lg"
+>
 
 
 
@@ -516,9 +504,6 @@ Return Completed ✓
 
 
 
-</div>
-
-
 </AdminLayout>
 
 
@@ -588,6 +573,19 @@ console.log(error);
 
 
 
+}
+
+
+function returnImagePath(path){
+
+    if(!path){
+        return '';
+    }
+
+    const filename =
+        path.split('/').pop();
+
+    return `https://project-ecommerce-backend-production.up.railway.app/return-image/${filename}`;
 }
 
 
