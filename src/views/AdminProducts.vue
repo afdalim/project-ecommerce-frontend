@@ -362,21 +362,7 @@ transition
 
 
 
-<img
-
-v-if="product.image_url"
-
-:src="'http://127.0.0.1:8000' + product.image_url"
-
-class="
-w-24
-h-24
-rounded-3xl
-object-cover
-shadow
-"
-
-/>
+<img :src="imagePath(product.image_url)">
 
 
 
