@@ -132,9 +132,6 @@ transition
 
 <pre>{{ item.images }}</pre>
 
-</div>
-
-
 
 <!-- TOP -->
 
@@ -298,55 +295,45 @@ Description
 
 <!-- EVIDENCE IMAGE -->
 
-
 <div
-
-v-if="item.image_url"
-
-class="
-mt-8
-"
-
+v-if="item.images && item.images.length"
+class="mt-8"
 >
 
+    <p class="text-gray-400 mb-3">
+        Evidence Image
+    </p>
 
-<p class="text-gray-400 mb-3">
+    <div class="flex gap-3 flex-wrap">
 
-Evidence Image
+        <img
+            v-for="image in item.images"
+            :key="image"
+            :src="returnImagePath(image)"
+            class="
+            w-24
+            h-24
+            object-cover
+            rounded-lg
+            border
+            "
+        />
 
-</p>
-
-
-
-<img
-    :src="returnImagePath(image)"
-    class="w-24 h-24 object-cover rounded-lg"
->
-
-
+    </div>
 
 </div>
 
-
-
-
-
-
 <div
-
 v-else
-
 class="
 mt-8
 text-gray-400
 italic
 "
-
 >
-
-No evidence image uploaded
-
+    No evidence image uploaded
 </div>
+
 
 
 </div>
@@ -480,7 +467,7 @@ Return Completed ✓
 </p>
 
 
-
+</div>
 
 
 

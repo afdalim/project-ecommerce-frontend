@@ -102,240 +102,163 @@ Your return history will appear here
 
 
 <!-- RETURN LIST -->
-
-
 <div class="space-y-8">
 
-
-
-<div
-    v-for="item in returns"
-    :key="item.id"
->
-
-    <pre>{{ item.images }}</pre>
-
     <div
-        v-for="image in item.images"
-        :key="image"
+        v-for="item in returns"
+        :key="item.id"
+        class="
+        bg-white/70
+        backdrop-blur-xl
+        rounded-[35px]
+        shadow-xl
+        border
+        border-white
+        p-10
+        "
     >
-        <img
-            :src="returnImagePath(image)"
-            class="w-32 h-32 object-cover rounded-xl"
+
+        <div class="flex justify-between">
+
+            <div>
+                <p
+                    class="
+                    tracking-[5px]
+                    text-pink-400
+                    font-bold
+                    "
+                >
+                    RETURN REQUEST
+                </p>
+
+                <h2
+                    class="
+                    text-3xl
+                    font-bold
+                    mt-3
+                    "
+                >
+                    Order #{{ item.order_id }}
+                </h2>
+            </div>
+
+            <span
+                :class="statusClass(item.status)"
+                class="
+                px-6
+                py-3
+                rounded-full
+                font-bold
+                h-fit
+                "
+            >
+                {{ item.status }}
+            </span>
+
+        </div>
+
+        <div
+            class="
+            mt-8
+            bg-white
+            rounded-3xl
+            p-6
+            shadow
+            "
         >
+
+            <p class="text-gray-400">
+                Reason
+            </p>
+
+            <h3 class="font-bold mt-2">
+                {{ item.reason }}
+            </h3>
+
+            <p class="text-gray-400 mt-6">
+                Description
+            </p>
+
+            <p class="mt-2">
+                {{ item.description }}
+            </p>
+
+            <div
+                v-if="item.images && item.images.length"
+                class="mt-8"
+            >
+
+                <p class="text-gray-400 mb-3">
+                    Evidence Image
+                </p>
+
+                <div class="flex gap-4 flex-wrap">
+
+                    <img
+                        v-for="image in item.images"
+                        :key="image"
+                        :src="returnImagePath(image)"
+                        class="
+                        w-32
+                        h-32
+                        object-cover
+                        rounded-xl
+                        border
+                        "
+                    />
+
+                </div>
+
+            </div>
+
+            <div
+                class="
+                mt-8
+                bg-pink-50
+                rounded-3xl
+                p-6
+                "
+            >
+
+                <p class="text-gray-400">
+                    Refund Amount
+                </p>
+
+                <h2
+                    class="
+                    text-3xl
+                    font-bold
+                    text-pink-500
+                    mt-2
+                    "
+                >
+                    {{ formatRupiah(item.refund_amount) }}
+                </h2>
+
+                <p class="text-gray-400 mt-5">
+                    Refund Status
+                </p>
+
+                <span
+                    class="
+                    inline-block
+                    mt-2
+                    px-5
+                    py-2
+                    rounded-full
+                    font-bold
+                    bg-green-100
+                    text-green-600
+                    "
+                >
+                    {{ item.refund_status }}
+                </span>
+
+            </div>
+
+        </div>
+
     </div>
-
-</div>
-
-
-
-
-<div class="flex justify-between">
-
-
-
-<div>
-
-
-<p
-class="
-tracking-[5px]
-text-pink-400
-font-bold
-"
->
-
-RETURN REQUEST
-
-</p>
-
-
-
-<h2
-class="
-text-3xl
-font-bold
-mt-3
-"
->
-
-Order #{{ item.order_id }}
-
-</h2>
-
-
-</div>
-
-
-
-
-
-
-
-<span
-
-:class="statusClass(item.status)"
-
-class="
-px-6
-py-3
-rounded-full
-font-bold
-h-fit
-"
-
->
-
-{{ item.status }}
-
-</span>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div
-class="
-mt-8
-bg-white
-rounded-3xl
-p-6
-shadow
-"
->
-
-
-<p class="text-gray-400">
-
-Reason
-
-</p>
-
-
-<h3 class="font-bold mt-2">
-
-{{ item.reason }}
-
-</h3>
-
-
-
-
-
-<p class="text-gray-400 mt-6">
-
-Description
-
-</p>
-
-
-
-<p class="mt-2">
-
-{{ item.description }}
-
-</p>
-
-<!-- REFUND -->
-
-
-<div
-class="
-mt-8
-bg-pink-50
-rounded-3xl
-p-6
-"
->
-
-
-<p class="text-gray-400">
-
-Refund Amount
-
-</p>
-
-
-<h2
-class="
-text-3xl
-font-bold
-text-pink-500
-mt-2
-"
->
-
-{{ formatRupiah(item.refund_amount) }}
-
-</h2>
-
-
-
-
-<p class="text-gray-400 mt-5">
-
-Refund Status
-
-</p>
-
-
-
-<span
-class="
-inline-block
-mt-2
-px-5
-py-2
-rounded-full
-font-bold
-bg-green-100
-text-green-600
-"
->
-
-{{ item.refund_status }}
-
-</span>
-
-
-</div>
-
-<!-- RETURN IMAGE -->
-
-
-<div
-v-if="item.image_url"
-class="mt-8"
->
-
-
-<p class="text-gray-400 mb-3">
-
-Evidence Image
-
-</p>
-
-
-
-<img :src="returnImagePath(image)">
-
-
-</div>
-
-</div>
-
-
-
-
-
 
 </div>
 
