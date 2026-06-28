@@ -296,7 +296,7 @@ Description
 <!-- EVIDENCE IMAGE -->
 
 <div
-v-if="item.images && item.images.length"
+v-if="item.image_url"
 class="mt-8"
 >
 
@@ -307,17 +307,15 @@ class="mt-8"
     <div class="flex gap-3 flex-wrap">
 
         <img
-            v-for="image in item.images"
-            :key="image"
-            :src="returnImagePath(image)"
-            class="
-            w-24
-            h-24
-            object-cover
-            rounded-lg
-            border
-            "
-        />
+    :src="returnImagePath(item.image_url)"
+    class="
+    w-24
+    h-24
+    object-cover
+    rounded-lg
+    border
+    "
+>
 
     </div>
 

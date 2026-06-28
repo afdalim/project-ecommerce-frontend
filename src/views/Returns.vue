@@ -183,8 +183,11 @@ Your return history will appear here
                 {{ item.description }}
             </p>
 
+
+            <pre>{{ item.images }}</pre>
+
             <div
-                v-if="item.images && item.images.length"
+                v-if="item.image_url"
                 class="mt-8"
             >
 
@@ -195,17 +198,15 @@ Your return history will appear here
                 <div class="flex gap-4 flex-wrap">
 
                     <img
-                        v-for="image in item.images"
-                        :key="image"
-                        :src="returnImagePath(image)"
-                        class="
-                        w-32
-                        h-32
-                        object-cover
-                        rounded-xl
-                        border
-                        "
-                    />
+    :src="returnImagePath(item.image_url)"
+    class="
+    w-32
+    h-32
+    object-cover
+    rounded-xl
+    border
+    "
+>
 
                 </div>
 
