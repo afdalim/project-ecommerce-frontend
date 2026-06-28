@@ -711,12 +711,14 @@ ref("");
 function imagePath(path){
 
     if(!path){
-        return "/placeholder.png";
+        return '/placeholder.png'
     }
 
-    return path.startsWith("http")
-        ? path
-        : `${BASE_URL}${path}`;
+    const filename =
+        path.split('/').pop()
+
+    return `https://project-ecommerce-backend-production.up.railway.app/product-image/${filename}`
+
 }
 
 

@@ -660,9 +660,14 @@ items:[]
 
 function imagePath(path){
 
+    if(!path){
+        return '/placeholder.png'
+    }
 
-return "http://127.0.0.1:8000" + path;
+    const filename =
+        path.split('/').pop()
 
+    return `https://project-ecommerce-backend-production.up.railway.app/product-image/${filename}`
 
 }
 

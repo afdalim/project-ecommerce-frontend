@@ -816,7 +816,18 @@ response.data.data;
 
 
 
+function imagePath(path){
 
+    if(!path){
+        return '/placeholder.png'
+    }
+
+    const filename =
+        path.split('/').pop()
+
+    return `https://project-ecommerce-backend-production.up.railway.app/product-image/${filename}`
+
+}
 
 
 
