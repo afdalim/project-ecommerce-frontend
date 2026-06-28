@@ -366,23 +366,12 @@ Detail
 
 
 <button
-
-v-if="order.payment_status === 'pending'"
-
-@click="router.push('/payment/'+order.id)"
-
-class="
-bg-pink-500
-text-white
-px-8
-py-3
-rounded-full
+v-if="
+order.payment_status == 'pending'
 "
-
+@click="payAgain(order.id)"
 >
-
-Pay Now
-
+Bayar Sekarang
 </button>
 
 
@@ -594,7 +583,20 @@ ref([]);
 
 
 
+const payAgain = async(orderId)=>{
 
+    const response =
+    await api.post(
+        '/payments/create',
+        {
+            order_id:orderId
+        }
+    )
+
+    window.snap.pay(
+        response.data.snap_token
+    )
+}
 
 
 

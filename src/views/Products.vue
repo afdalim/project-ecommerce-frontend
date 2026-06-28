@@ -662,7 +662,16 @@ import api from "../api/axios";
 import CustomerLayout from "../components/CustomerLayout.vue";
 
 
+const BASE_URL =
+import.meta.env.VITE_API_URL.replace('/api','');
 
+function imagePath(path){
+    if(!path){
+        return '';
+    }
+
+    return BASE_URL + path;
+}
 
 
 

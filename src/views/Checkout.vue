@@ -572,43 +572,34 @@ async function createOrder() {
 
         console.log("PAYMENT RESPONSE :", payment);
 
-        window.snap.pay(payment.data.snap_token, {
+        window.snap.pay(response.data.snap_token, {
 
-            onSuccess(result) {
+    onSuccess: function(result) {
 
-                console.log(result);
+        router.push('/orders')
 
-                alert("Pembayaran berhasil 🎉");
+    },
 
-                router.push("/orders");
+    onPending: function(result) {
 
-            },
+        router.push('/orders')
 
-            onPending(result) {
+    },
 
-                console.log(result);
+    onError: function(result) {
 
-                alert("Menunggu pembayaran");
+        router.push('/orders')
 
-                router.push("/orders");
+    },
 
-            },
+    onClose: function() {
 
-            onError(result) {
+        router.push('/orders')
 
-                console.log(result);
+    }
 
-                alert("Pembayaran gagal");
+})
 
-            },
-
-            onClose() {
-
-                alert("Popup pembayaran ditutup");
-
-            }
-
-        });
 
     } catch(error){
 

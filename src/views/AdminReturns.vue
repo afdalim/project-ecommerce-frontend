@@ -635,15 +635,29 @@ async function rejectReturn(id){
 
 
 async function completeReturn(id){
-    await api.put(
-        `/admin/returns/${id}/complete`
-    );
+    try{
 
-    alert("Return completed");
+        const response = await api.put(
+            `/admin/returns/${id}/complete`
+        );
 
-    getReturns();
+        console.log(response.data);
+
+        alert("Return completed");
+
+        getReturns();
+
+    }catch(error){
+
+        console.log(error);
+
+        alert(
+            error.response?.data?.message ??
+            error.message ??
+            "Failed to complete return"
+        );
+    }
 }
-
 
 
 onMounted(()=>{
